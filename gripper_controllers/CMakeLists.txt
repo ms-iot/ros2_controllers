@@ -6,10 +6,14 @@ if(APPLE)
   return()
 endif()
 
-# Default to C++14
 if(NOT CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 14)
+  if(MSVC)
+    set(CMAKE_CXX_STANDARD 17)
+  else()
+    set(CMAKE_CXX_STANDARD 14)
+  endif()
 endif()
+
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra)
@@ -43,6 +47,9 @@ target_include_directories(gripper_action_controller
   PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   PRIVATE $<INSTALL_INTERFACE:include>
 )
+
+target_compile_definitions(gripper_action_controller PUBLIC "GRIPPER_ACTION_CONTROLLER_BUILDING_DLL" "_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS")
+
 pluginlib_export_plugin_description_file(controller_interface ros_control_plugins.xml)
 #############
 ## Install ##
@@ -75,7 +82,7 @@ if(BUILD_TESTING)
     controller_manager
     ros2_control_test_assets
   )
-  target_compile_definitions(test_load_gripper_action_controllers PUBLIC "PLUGINLIB__DISABLE_BOOST_FUNCTIONS")
+  target_compile_definitions(test_load_gripper_action_controllers PUBLIC "PLUGINLIB__DISABLE_BOOST_FUNCTIONS" "_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS")
 endif()
 
 ament_package()

@@ -323,9 +323,9 @@ rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn
 GripperActionController<HardwareInterface>::on_deactivate(
   const rclcpp_lifecycle::State &)
 {
-  joint_position_command_interface_ = std::experimental::nullopt;
-  joint_position_state_interface_ = std::experimental::nullopt;
-  joint_velocity_state_interface_ = std::experimental::nullopt;
+  joint_position_command_interface_ = STD_OPTIONAL_NAMESPACE::nullopt;
+  joint_position_state_interface_ = STD_OPTIONAL_NAMESPACE::nullopt;
+  joint_velocity_state_interface_ = STD_OPTIONAL_NAMESPACE::nullopt;
   release_interfaces();
   return rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::
          CallbackReturn::SUCCESS;

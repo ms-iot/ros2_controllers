@@ -1,9 +1,12 @@
 cmake_minimum_required(VERSION 3.5)
 project(joint_trajectory_controller)
 
-# Default to C++14
 if(NOT CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 14)
+  if(MSVC)
+    set(CMAKE_CXX_STANDARD 17)
+  else()
+    set(CMAKE_CXX_STANDARD 14)
+  endif()
 endif()
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
@@ -42,7 +45,7 @@ ament_target_dependencies(joint_trajectory_controller
 )
 # Causes the visibility macros to use dllexport rather than dllimport,
 # which is appropriate when building the dll but not consuming it.
-target_compile_definitions(joint_trajectory_controller PRIVATE "JOINT_TRAJECTORY_CONTROLLER_BUILDING_DLL" "_USE_MATH_DEFINES")
+target_compile_definitions(joint_trajectory_controller PRIVATE "JOINT_TRAJECTORY_CONTROLLER_BUILDING_DLL" "_USE_MATH_DEFINES" "_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS")
 # prevent pluginlib from using boost
 target_compile_definitions(joint_trajectory_controller PUBLIC "PLUGINLIB__DISABLE_BOOST_FUNCTIONS")
 pluginlib_export_plugin_description_file(controller_interface joint_trajectory_plugin.xml)
@@ -98,7 +101,7 @@ if(BUILD_TESTING)
     realtime_tools
     ros2_control_test_assets
   )
-  target_compile_definitions(test_load_joint_trajectory_controller PUBLIC "PLUGINLIB__DISABLE_BOOST_FUNCTIONS")
+  target_compile_definitions(test_load_joint_trajectory_controller PUBLIC "PLUGINLIB__DISABLE_BOOST_FUNCTIONS" "_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS")
 
   ament_add_gtest(
     test_trajectory_actions
