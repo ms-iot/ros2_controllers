@@ -34,6 +34,7 @@ ament_target_dependencies(${PROJECT_NAME}
 # Causes the visibility macros to use dllexport rather than dllimport,
 # which is appropriate when building the dll but not consuming it.
 target_compile_definitions(${PROJECT_NAME} PRIVATE "EFFORT_CONTROLLERS_BUILDING_DLL")
+
 pluginlib_export_plugin_description_file(controller_interface effort_controllers_plugins.xml)
 
 install(

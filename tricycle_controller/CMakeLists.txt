@@ -3,6 +3,8 @@ project(tricycle_controller)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
+else()
+  add_definitions(-D_USE_MATH_DEFINES)
 endif()
 
 # find dependencies
@@ -30,6 +32,9 @@ add_library(
   src/traction_limiter.cpp
   src/steering_limiter.cpp
 )
+
+target_compile_definitions(${PROJECT_NAME} PRIVATE "TRICYCLE_CONTROLLER_BUILDING_DLL")
+
 target_include_directories(
   ${PROJECT_NAME}
   PRIVATE

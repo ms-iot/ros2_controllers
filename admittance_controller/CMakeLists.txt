@@ -40,6 +40,7 @@ foreach(Dependency IN ITEMS ${THIS_PACKAGE_INCLUDE_DEPENDS})
 endforeach()
 
 add_library(admittance_controller SHARED src/admittance_controller.cpp)
+
 target_include_directories(admittance_controller PRIVATE include)
 generate_parameter_library(admittance_controller_parameters src/admittance_controller_parameters.yaml)
 target_link_libraries(admittance_controller admittance_controller_parameters)

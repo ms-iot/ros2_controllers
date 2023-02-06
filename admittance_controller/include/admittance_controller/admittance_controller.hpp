@@ -95,8 +95,10 @@ public:
     const rclcpp::Time & time, const rclcpp::Duration & period) override;
 
 protected:
+  ADMITTANCE_CONTROLLER_PUBLIC
   std::vector<hardware_interface::CommandInterface> on_export_reference_interfaces() override;
 
+  ADMITTANCE_CONTROLLER_PUBLIC
   controller_interface::return_type update_reference_from_subscribers() override;
 
   size_t num_joints_ = 0;
